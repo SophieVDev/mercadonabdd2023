@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>S'enregistrer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.scss">
+</head>
+<body>
+
+
+<div class="se-connecter">
+  <img src="assets/images/Header_mercadona.jpg" class="img-contact" [routerLink]="['']" style = "width:100%" alt="header_mercadona"
+       title="header de l'entreprise">
+  <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+      <h1>Espace Entreprise</h1>
+      <div class="modal-content rounded-4 shadow">
+        <div>
+          <p class="text-body-secondary">Cette page est uniquement dédiée aux salariés du service informatique de l'entreprise. Cette espace vous permettra d'intégrer/ supprimer de nouvelles offres en promotion. Vos codes d'accès vous sera envoyé par votre directeur informatique.</p>
+        </div>
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <h2 class="fw-bold mb-0 fs-2">Se connecter</h2>
+        </div>
+
+        <div class="modal-body p-5 pt-0">
+          <form class="">
+            <div class="form-floating mb-3">
+
+              <input type="email" class="form-control rounded-3" name="email" id="floatingInput" placeholder="Email" required>
+              <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+
+              <input type="text" class="form-control rounded-3" name="login" id="floatingInput" placeholder="Login" required>
+              <label for="floatingInput">Login</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control rounded-3" name ="password" id="floatingPassword" placeholder="Password"  required>
+              <label for="floatingPassword">Mot de passe</label>
+            </div>
+           <div class="input-box">
+             <input type="submit" name="sign-in" value="Login">
+           </div>
+            <a href="/static">Aller à la page d'accueil</a>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</body>
+</html>

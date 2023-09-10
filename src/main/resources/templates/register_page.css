@@ -1,0 +1,26 @@
+.se-connecter{
+    width: 100%;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.se-connecter img {
+    cursor: pointer;
+    padding-bottom: 40px;
+}
+.se-connecter .modal-dialog h1 {
+    color: #219e6b;
+    font-size: 45px;
+    font-weight: bold;
+    align-items: center;
+    padding-bottom:25px;
+}
+.se-connecter .modal-dialog p {
+    padding: 20px 20px 0px 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.se-connecter .modal-dialog button {
+    background-color: #219e6b;
+    border-color: #219e6b;
+}

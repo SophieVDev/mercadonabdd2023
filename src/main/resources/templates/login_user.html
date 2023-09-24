@@ -20,7 +20,7 @@
         <div class="menu">
             <ul class="nav">
                 <li><a href="http://localhost:4200/" class="nav-link px-2" style ="color:#141616; font-size:18px;">Vos promotions</a></li>
-                <li><a href="http://localhost:4200/produits" class="nav-link px-2"style ="color:#141616;font-size:18px;">Nos produits</a></li>
+                <li><a href="http://localhost:4200/produits" class="nav-link px-2"style ="color:#141616;font-size:18px;">Catalogue</a></li>
                 <li><a href="http://localhost:4200/nous-connaître" class="nav-link px-2"style ="color:#141616;  font-size:18px;">Nous connaître</a></li>
                 <li><a href="http://localhost:4200/nous-contacter" class="nav-link px-2"style ="color:#141616; font-size:18px;">Nous contacter</a></li>
             </ul>
@@ -34,7 +34,7 @@
 
 
 <div class="enregister">
-    <img src="/images/headermercadona.jpg" class="img-contact" [routerLink]="['']" style = "width:100%" alt="header_mercadona"
+    <img src="/images/votre-espace.jpg" style = "width:100%" alt="header_mercadona"
          title="header de l'entreprise">
     <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
         <div class="modal-dialog" role="document">
@@ -42,7 +42,7 @@
             <div class="modal-content rounded-4 shadow">
 
                 <div class="modal-header p-5 pb-4 border-bottom-0">
-                    <h2 class="fw-bold mb-0 fs-2">S'enregistrer</h2>
+                    <h2 class="fw-bold mb-0 fs-2">Se Connecter</h2>
                 </div>
                 <div class="modal-body p-5 pt-0">
 
@@ -50,11 +50,11 @@
 <form method="post" action="/login" th:object="${loginRequest}">
     <div class="form-floating mb-3">
 
-        <input type="text" class="form-control rounded-3" name="login" id="floatingInput" placeholder="Login">
-        <label for="floatingInput">Login</label>
+        <input type="text"  class="form-control rounded-3" name="login" id="floatingInput" placeholder="Login">
+        <label for="floatingInput">Identifiant</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="password" class="form-control rounded-3" name ="password" id="floatingPassword" placeholder="Password">
+        <input type="password"  class="form-control rounded-3" name ="password" id="floatingPassword" placeholder="Password">
         <label for="floatingPassword">Mot de passe</label>
     </div>
     <div class="input-box">
@@ -74,7 +74,7 @@
         <p class="col-md-4 mb-0 text-body-secondary">© 2023 Mercadona</p>
 
 
-        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <a href="http://localhost:4200/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <img class="bi me-2" width="150" height="50" src="/images/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
         </a>
 

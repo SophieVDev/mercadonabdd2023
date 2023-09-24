@@ -1,11 +1,6 @@
 package fr.mercadona.mercadona.controller;
-
-import fr.mercadona.mercadona.model.Product;
-import fr.mercadona.mercadona.model.ProduitPromo;
-import fr.mercadona.mercadona.service.ProductService;
-import fr.mercadona.mercadona.service.ProduitPromoService;
-import fr.mercadona.mercadona.service.ProduitPromoService;
-import fr.mercadona.mercadona.repository.ProduitPromoRepository;
+import fr.mercadona.mercadona.model.Products;
+import fr.mercadona.mercadona.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,94 +13,57 @@ import java.util.List;
 public class ApiController {
 
     @Autowired
-    private ProductService productService;
+    private ProductsService productsService;
 
-    @Autowired
-    private ProduitPromoService produitPromoService;
 
-    @Autowired
-    private ProduitPromoRepository produitPromoRepository;
-    @GetMapping("/products")
-    public List<Product> getAllProducts() {
-            return productService.getAllProducts();
+    @GetMapping("/produits")
+    public List<Products> getAllProducts() {
+            return productsService.getAllProducts();
     }
 
-    @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
-        return ResponseEntity.ok(createdProduct);
+
+    @PostMapping("/produits")
+    public ResponseEntity<Products> createProduct(@RequestBody Products products) {
+        Products createdProducts = productsService.createProduct(products);
+        return ResponseEntity.ok(createdProducts);
     }
-    @GetMapping("/products/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) {
-        Product product = productService.getProductById(productId);
-        if (product != null) {
-            return ResponseEntity.ok(product);
+    @GetMapping("/produits/{productId}")
+    public ResponseEntity<Products> getProductsById(@PathVariable Integer productId) {
+        Products products = productsService.getProductsById(productId);
+        if (products != null) {
+            return ResponseEntity.ok(products);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PutMapping("/products/{productId}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long productId, @RequestBody Product product) {
-        Product updatedProduct = productService.updateProduct(productId, product);
-        if (updatedProduct != null) {
-            return ResponseEntity.ok(updatedProduct);
+    @PutMapping("/produits/{productId}")
+    public ResponseEntity<Products> updateProduct(@PathVariable Integer productsId, @RequestBody Products products) {
+        Products updatedProducts = productsService.updateProducts(productsId, products);
+        if (updatedProducts != null) {
+            return ResponseEntity.ok(updatedProducts);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/products/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
-        productService.deleteProduct(productId);
+    @DeleteMapping("/produits/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Integer productsId) {
+        productsService.deleteProduct(productsId);
         return ResponseEntity.noContent().build();
     }
 
 
+  /*  @RequestMapping("/categories")
+    public class CategoriesController {
+        private CategoriesService categoriesService;
 
-    @GetMapping("/promo")
-    public List<ProduitPromo> getAllProduitPromo() {
-        return produitPromoService.getAllProduitPromo();
-    }
-
-    @PostMapping("/promo")
-    public ResponseEntity<ProduitPromo> createProduitPromo(@RequestBody ProduitPromo produitPromo) {
-        ProduitPromo createdProduitPromo = produitPromoService.createProduitPromo(produitPromo);
-        return ResponseEntity.ok(createdProduitPromo);
-    }
-    @GetMapping("/promo/{produit_promoId}")
-    public ResponseEntity<ProduitPromo> getProduitPromoById(@PathVariable Long produit_promoId) {
-        ProduitPromo produitPromo = produitPromoService.getProduitPromoById(produit_promoId);
-        if (produitPromo != null) {
-            return ResponseEntity.ok(produitPromo);
-        } else {
-            return ResponseEntity.notFound().build();
+        @GetMapping("categories/list")
+        public List<Categories> getAllCategories() {
+            return categoriesService.getAllCategories();
         }
-    }
 
-    @GetMapping("/promo/{produit_promoCategorie}")
-    public List<ProduitPromo> getProductsByCategory(@PathVariable ("categorie") String categorie) {
-        // Utilisez votre service de produit pour récupérer les produits par catégorie
-        List<ProduitPromo> products = produitPromoService.getProductsByCategorie(categorie);
-        return products;
-    }
-
-    @PutMapping("/promo/{produit_promoId}")
-    public ResponseEntity<ProduitPromo> updateProduitPromo(@PathVariable Long produit_promoId, @RequestBody ProduitPromo produitPromo) {
-        ProduitPromo updatedProduitPromo = produitPromoService.updateProduitPromo(produit_promoId, produitPromo);
-        if (updatedProduitPromo != null) {
-            return ResponseEntity.ok(updatedProduitPromo);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @DeleteMapping("/promo/{produit_promoId}")
-    public ResponseEntity<Void> deleteProduitPromo(@PathVariable Long produit_promoId) {
-        produitPromoService.deleteProduct(produit_promoId);
-        return ResponseEntity.noContent().build();
-    }
-
+    }*/
 }
 
 

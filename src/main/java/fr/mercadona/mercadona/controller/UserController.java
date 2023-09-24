@@ -24,6 +24,14 @@ public class UserController {
         return "register_page";
     }
 
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user){
+        System.out.println("register request:" + user );
+        User registeredUser = userService.registerUser(user.getLogin(), user.getPassword(),user.getEmail());
+        return registeredUser == null ? "error_page" : "redirect:/login";
+    }
+
+
     @GetMapping("/login")
     public String getLoginPage(Model model){
         model.addAttribute("loginRequest", new User());
@@ -31,23 +39,28 @@ public class UserController {
     }
 
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user){
-        System.out.println("register request:" + user );
-        User registeredUser = userService.registerUser(user.getLogin(), user.getPassword(),user.getEmail());
-    return registeredUser == null ? "error_page" : "redirect:/login";
-    }
-
     @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model){
         System.out.println("login request:" + user );
         User authenticated = userService.authenticate(user.getLogin(), user.getPassword());
         if(authenticated !=null){
             model.addAttribute("userLogin",authenticated.getLogin());
-            return "personal-page";
+            return "redirect:/produits/intranet";
         }else{
             return "error_page";
         }
+    }
+
+
+    @GetMapping("/login/intranet")
+    public String getProductIntranetPage(Model model){
+        return "redirect:/products/intranet";
+    }
+
+
+    @GetMapping("/erreur")
+    public String getErrorPage() {
+        return "error_page";
     }
 
 }

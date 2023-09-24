@@ -1,16 +1,17 @@
 package fr.mercadona.mercadona.model;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Arrays;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "product")
-public class Product {
+@Table(name = "products")
+public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,14 +21,20 @@ public class Product {
     private double prix;
     private double promotion;
     private String photoUrl;
-    private String expirationDate ;
+    private String expirationDate;
+    @Column(name = "image_path")
+    private String imagePath;
 
-
+    @ManyToOne
+    @JoinColumn(name="categories_id")
+    private Categories categories;
+    public Products() {
+    }
 
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Products{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", description='" + description + '\'' +
@@ -38,9 +45,7 @@ public class Product {
                 '}';
     }
 
-
-
-    public Product(String nom, String description, double prix, double promotion, String photoUrl,String expirationDate) {
+    public Products(String nom, String description, double prix, double promotion, String photoUrl, String expirationDate) {
         this.nom = nom;
         this.description = description;
         this.prix = prix;
@@ -48,9 +53,6 @@ public class Product {
         this.photoUrl = photoUrl;
         this.expirationDate = expirationDate;
 
-    }
-
-    public Product() {
     }
 
 
@@ -102,6 +104,7 @@ public class Product {
         this.photoUrl = photoUrl;
     }
 
+
     public String getExpirationDate() {
         return expirationDate;
     }
@@ -109,15 +112,20 @@ public class Product {
     public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
-    // Ajoutez les getters et les setters pour imagePath
 
+    public Categories getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Categories categories) {
+        this.categories = categories;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
 }
-
-
-
-
-
-
-
-

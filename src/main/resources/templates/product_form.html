@@ -11,7 +11,7 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-xl-between py-3 mb-4 border-bottom">
   <div class="col-xl-3 mb-2 mb-md-0">
     <a href="http://localhost:4200/" class="d-inline-flex link-body-emphasis text-decoration-none">
-      <img class="logo" src="/images/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise" width="350" height="100">
+      <img class="logo" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise" width="350" height="100">
     </a>
   </div>
   <nav class="navbar col-12 col-xl-auto mb-2 justify-content-center mb-md-0">
@@ -29,7 +29,7 @@
 
 
 <div class="container-fluid text-center">
-  <img src="/images/votre-espace.jpg" style = "width:100%" alt="header_intranet" title="header de l'intranet">
+  <img src="/votre-espace.jpg" style = "width:100%" alt="header_intranet" title="header de l'intranet">
   <br>
   <br>
     <h2 class="text-center"> [[${pageTitle}]]<span th:text="${userLogin}"></span></h2>
@@ -73,7 +73,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">Prix</label>
           <div class="col-sm-8">
-            <input id="prix" type="number"  th:field="*{prix}"  class="form-control"required/>
+            <input id="prix" type="number"  th:field="*{prix}"  class="form-control"required step="0.01"/>
           </div>
         </div>
           <br>
@@ -83,11 +83,11 @@
           <div class="form-group row">
             <label class="col-sm-4 col-form-label">Promotion (%)</label>
             <div class="col-sm-8">
-              <input id="pourcentage" name="pourcentage" type="number" placeholder="Pourcentage de remise en %" class="form-control" />
+              <input id="pourcentage" name="pourcentage" type="number" placeholder="Pourcentage de remise en %" class="form-control" step="0.01"/>
               <br>
               <input type="button" class="btn btn-success m-2" th:field="*{promotion}" value="calculer" onclick="calculer()" />
               <div>
-                <p> Résultat : <span id="resultat" ></span></p>
+                <p> Prix de vente remisé : <span id="resultat" ></span></p>
               </div>
             </div>
           </div>
@@ -96,24 +96,25 @@
        <div class="form-group row">
             <label class="col-sm-8 col-form-label">Si le résultat vous convient veuillez inscrire la remise en %</label>
             <div class="col-sm-3">
-              <input  id="promotionValue" type="number"  th:field="*{promotion}"  class="form-control"/>
+              <input  id="promotionValue" type="number"  th:field="*{promotion}"  class="form-control"step="0.01"/>
             </div>
           </div>
+        </div>
 
 <br>
-
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">Image</label>
           <div class="col-sm-8">
-            <input type="file" name="file" th:field="*{imagePath}" class="form-control-file">
+            <img src="" alt="Aperçu de l'image" id="imagePreview" style="max-width: 100%; max-height: 200px;">
+            <form method="post" action="/upload" enctype="multipart/form-data">
+
+              <!-- Champ d'upload d'image pour imagePath -->
+              <input type="file" accept="image/*" class="form-control-file" th:field="*{image}" onchange="previewImage(this);">
+
+              <input type="submit" value="Enregistrer" class="btn btn-success m-2">
+
+            </form>
           </div>
-        </div>
-
-        <div class="text-center">
-         <button type="submit" class="btn btn-success m-2">Enregistrer</button>
-          <button type="submit" class="btn btn-secondary m-2" onclick="cancelForm()">Annuler</button>
-        </div>
-
         </div>
     </form>
 
@@ -125,7 +126,7 @@
 
 
     <a href="http://localhost:4200/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-      <img class="bi me-2" width="150" height="50" src="/images/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
+      <img class="bi me-2" width="150" height="50" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
@@ -133,6 +134,8 @@
     </ul>
   </footer>
 </div>
+
+
 <script type="text/javascript">
   function cancelForm(){
     window.location = "[[@{/produits/intranet}]]"
@@ -162,6 +165,39 @@
 
   // Ajouter un gestionnaire d'événement au clic sur le bouton
   document.querySelector("input[type='button']").addEventListener("click", calculer);
+
+
+  //VISUALISER IMAGE
+    function previewImage(input) {
+    const imagePreview = document.getElementById("imagePreview");
+    if (input.files && input.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+    imagePreview.src = e.target.result;
+  };
+
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    imagePreview.src = ""; // Effacer l'aperçu si aucun fichier n'est sélectionné
+  }
+  }
+
+  //REDIRECTION VERS PAGE D'ACCUEIL SI LA PERSONNE NE CLIQUE PAS SUR LA SOURIS PENDANT 5 MIN//
+
+    let inactivityTimeout;
+
+    function resetInactivityTimeout() {
+    clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(function(){
+    window.location.href = 'http://localhost:4200/';
+  }, 300000); // Redirige vers http://localhost:4200/ après 30 secondes d'inactivité
+  }
+
+    document.addEventListener('mousemove', resetInactivityTimeout);
+
+    // Démarre le timeout d'inactivité au chargement de la page
+    document.addEventListener('DOMContentLoaded', resetInactivityTimeout);
 </script>
 </body>
 </html>

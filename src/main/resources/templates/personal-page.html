@@ -10,7 +10,7 @@
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-xl-between py-3 mb-4 border-bottom">
     <div class="col-xl-3 mb-2 mb-md-0">
         <a href="http://localhost:4200/" class="d-inline-flex link-body-emphasis text-decoration-none">
-            <img class="logo" src="/images/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise" width="350" height="100">
+            <img class="logo" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise" width="350" height="100">
         </a>
     </div>
     <nav class="navbar col-12 col-xl-auto mb-2 justify-content-center mb-md-0">
@@ -28,7 +28,7 @@
 
 
 <div class="container-fluid text-center">
-    <img src="/images/votre-espace.jpg" style = "width:100%" alt="header_intranet" title="header de l'intranet">
+    <img src="/votre-espace.jpg" style = "width:100%" alt="header_intranet" title="header de l'intranet">
     <br>
     <br>
     <br>
@@ -68,11 +68,20 @@
                     <td>[[${products.expirationDate}]]</td>
                     <td th:text="${products.prix + ' €'}"></td>
                     <td>[[${products.promotion}]]</td>
-                    <td th:text="${products.prix} * ${products.promotion} / 100 + ' €'"></td>
-                    <td>[[${products.photoUrl}]]</td>
+                    <td th:text="${products.prix} - ${products.prix} * ${products.promotion} / 100 + ' €'"></td>
+                    <td>
+                        <img th:if="${products.id != null}" th:src="@{'/produits/image/' + ${products.image}}" alt="Image du produit" width="100" height="100" />
+                    </td>
+
+
+
+
+
+
 
                     <td>
                         <a class="h4 mr-3" th:href="@{'/produits/edit/' + ${products.id}}"><i class="bi bi-pencil"></i></a>
+                        <a class="h4 mr-3" th:href="@{'/produits/edit/' + ${products.id}}"><i class="bi bi-percent"></i></a>
                         <a class="h4 mr-3" th:href="@{'/produits/delete/' + ${products.id}}"><i class="bi bi-trash3"></i></a>
                     </td>
                 </tr>
@@ -88,7 +97,7 @@
 
 
                 <a href="http://localhost:4200/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                    <img class="bi me-2" width="150" height="50" src="/images/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
+                    <img class="bi me-2" width="150" height="50" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
                 </a>
 
                 <ul class="nav col-md-4 justify-content-end">
@@ -101,4 +110,21 @@
 
 
 </html>
+
+
+<script>
+    let inactivityTimeout;
+
+    function resetInactivityTimeout() {
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(function(){
+            window.location.href = 'http://localhost:4200/';
+        }, 300000); // Redirige vers http://localhost:4200/ après 30 secondes d'inactivité
+    }
+
+    document.addEventListener('mousemove', resetInactivityTimeout);
+
+    // Démarre le timeout d'inactivité au chargement de la page
+    document.addEventListener('DOMContentLoaded', resetInactivityTimeout);
+</script>
 

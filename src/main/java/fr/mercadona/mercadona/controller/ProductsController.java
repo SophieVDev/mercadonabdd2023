@@ -18,30 +18,40 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ProductsController {
-@Autowired
-private ProductsRepository productsRepository;
+    @Autowired
+    private ProductsRepository productsRepository;
 
-@Autowired
-private CategoriesRepository categoriesRepository;
+    @Autowired
+    private CategoriesRepository categoriesRepository;
 
     @Autowired
     private ProductsService productsService;
-
 
 
     @GetMapping("/produits/intranet")
     public String showProductsList(Model model) {
         List<Products> listProducts = productsService.listAll();
 
+// Pour chaque produit, ajoutez le chemin d'accès à l'image
+        listProducts.forEach(product -> {
+            String imageFileName = product.getImageName(); // Obtenez le nom du fichier image depuis la base de données
+            String imageUrl = "/static/images/" + imageFileName; // Chemin d'accès à l'image sur le système de fichiers
+            product.setImageName(imageUrl); // Assurez-vous que setImageName() est le bon setter pour l'URL de l'image
+        });
 
         ViewModels viewModels = new ViewModels();
         viewModels.setListProducts(listProducts);
+
 
         model.addAttribute("viewModels", viewModels);
 
@@ -52,6 +62,9 @@ private CategoriesRepository categoriesRepository;
     @GetMapping("/produits")
     public String showProducts(Model model) {
         List<Products> products = productsService.getAllProducts();
+
+
+
         List<Categories> categoriesList = categoriesRepository.findAll();
         model.addAttribute("products", products);
         model.addAttribute("categoriesList", categoriesList);
@@ -60,19 +73,19 @@ private CategoriesRepository categoriesRepository;
     }
 
 
-    @GetMapping ("/produits/nouveau")
-    public String showNewFormProduits(Model model){
+    @GetMapping("/produits/nouveau")
+    public String showNewFormProduits(Model model) {
         List<Categories> categoriesList = categoriesRepository.findAll();
         model.addAttribute("products", new Products());
         model.addAttribute("categoriesList", categoriesList);
         model.addAttribute("pageTitle", "Veuillez intégrer votre nouveau produit");
-        return"product_form";
+        return "product_form";
     }
 
     @PostMapping("/produits/save")
     public String saveProducts(Products products, RedirectAttributes response) {
         productsService.save(products);
-        response.addFlashAttribute("message","Votre produit a bien été enregistré");
+        response.addFlashAttribute("message", "Votre produit a bien été enregistré");
 
         return "redirect:/produits/intranet";
     }
@@ -87,17 +100,17 @@ private CategoriesRepository categoriesRepository;
             model.addAttribute("pageTitle", "Modification du produit ayant l'ID : " + id);
             return "product_form";
         } catch (ProductsNotFoundException e) {
-            response.addFlashAttribute("message", "Votre produit ayant l'ID : " + id +" a bien été modifié");
+            response.addFlashAttribute("message", "Votre produit ayant l'ID : " + id + " a bien été modifié");
             return "redirect:/produits/intranet";
         }
     }
 
 
     @GetMapping("/produits/delete/{id}")
-    public String deleteProducts(@PathVariable("id")Integer id, RedirectAttributes response) {
+    public String deleteProducts(@PathVariable("id") Integer id, RedirectAttributes response) {
         try {
             productsService.delete(id);
-            response.addFlashAttribute("message", "Le produit n° "+id+"a bien été supprimé");
+            response.addFlashAttribute("message", "Le produit n° " + id + "a bien été supprimé");
         } catch (ProductsNotFoundException e) {
             response.addFlashAttribute("message", e.getMessage());
 
@@ -105,102 +118,79 @@ private CategoriesRepository categoriesRepository;
         return "redirect:/produits/intranet";
 
     }
-
-///IMAGES VISBLES/////
-@PostMapping("/produits/upload")
-public String uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute Products products) {
-    if (!file.isEmpty()) {
+    @PostMapping("/produits/upload")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("imageFile") MultipartFile file) {
         try {
-            // Spécifiez le chemin complet vers le bureau
-            String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+            // Vérifiez si le fichier n'est pas vide
+            if (!file.isEmpty()) {
+                // Générez un nom de fichier unique pour éviter les conflits
+                String originalFileName = file.getOriginalFilename();
+                String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1).toLowerCase();
+                String uniqueFileName = UUID.randomUUID().toString() + "." + fileExtension;
 
-            // Assurez-vous que le dossier "imagemercadona" existe sur le bureau
-            File imageMercadonaFolder = new File(desktopPath + File.separator + "imagemercadona");
-            if (!imageMercadonaFolder.exists()) {
-                imageMercadonaFolder.mkdir();
+                // Enregistrez l'image sur le disque
+                String imagePath =  "src/main/resources/static/images/" + uniqueFileName;
+                try (FileOutputStream outputStream = new FileOutputStream(imagePath)) {
+                    outputStream.write(file.getBytes());
+                }
+
+                // Enregistrez le nom unique du fichier dans la colonne 'imageName' de votre base de données
+                Products product = new Products();
+                product.setImageName(uniqueFileName); // Stockez le nom unique du fichier
+                product.setImage(file.getBytes()); // Stockez les données binaires de l'image
+                productsService.save(product);
+
+                return ResponseEntity.ok("L'image " + file.getOriginalFilename() + " a été téléchargée et stockée avec succès.");
+            } else {
+                return ResponseEntity.badRequest().body("Le fichier est vide.");
             }
-
-            // Enregistrez le fichier sur le bureau
-            File desktopFile = new File(desktopPath + File.separator + "imagemercadona" + File.separator + file.getOriginalFilename());
-            file.transferTo(desktopFile);
-
-            // Mettez à jour le chemin de l'image dans l'objet Product
-            String imagePath = "imagemercadona/" + file.getOriginalFilename();
-            products.setImagePath(imagePath);
-
-            // Enregistrez le produit mis à jour dans la base de données
-            productsService.save(products);
-
-            return "redirect:/success"; // Redirigez vers une page de succès
         } catch (IOException e) {
-            e.printStackTrace();
-            return "redirect:/error"; // Redirigez vers une page d'erreur en cas de problème
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Une erreur est survenue lors du téléchargement et du stockage de l'image.");
         }
-    } else {
-        return "redirect:/error"; // Redirigez vers une page d'erreur si aucun fichier n'a été téléchargé
     }
-}
 
 
-
-    @GetMapping("/produits/image/{id}")
-    public ResponseEntity<byte[]> getProductsImage(@PathVariable ("id")Integer id) {
-        // Récupérez le chemin de l'image depuis la base de données en utilisant l'ID du produit
-        String imagePath = productsService.getProductsImageById(id);
-
-        // Chargez le contenu de l'image depuis le dossier "imagemercadona"
-        byte[] imageContent = productsService.loadProductsImage(imagePath);
-
-        // Construisez une réponse avec le contenu de l'image et les en-têtes appropriés
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        headers.setContentLength(imageContent.length);
-        return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
-    }
-}
-
-    // ...
+// ...
 
 
 
 
+    //STOCKER IMAGE
 
 
 
-//////////////REMISE//////////////////////////////
-
-  /*  @PostMapping("/appliquer-remise")
-    public String appliquerRemise(@RequestParam("id") Integer id, @RequestParam("promotion") Double promotion, RedirectAttributes response) {
-
+    /*@PostMapping("/upload")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("imageFile") MultipartFile file) {
         try {
-            Products product = new Products();
-            // Récupérez le produit par son ID
-            Products products = productsService.get(id);
+            // Vérifiez si le fichier n'est pas vide
+            if (!file.isEmpty()) {
+                Products products = new Products();
+                products.setImage(file.getBytes()); // Stockez les données binaires de l'image
 
-            if (products != null) {
-                // Appliquez la remise au produit en fonction de la promotion
-                double prixProduit = product.getPrix();
-                double prixRemise = prixProduit * (1 - promotion / 100); // Appliquez la remise
-                product.setPrix(prixRemise);
-
-                // Enregistrez le produit mis à jour
+                // Sauvegardez l'objet Products dans la base de données en utilisant le service
                 productsService.save(products);
 
-                response.addFlashAttribute("message", "Remise appliquée avec succès au produit n°" + id);
+                return ResponseEntity.ok("L'image " + file.getOriginalFilename() + " a été téléchargée et stockée avec succès.");
             } else {
-                response.addFlashAttribute("message", "Produit introuvable avec l'ID : " + id);
+                return ResponseEntity.badRequest().body("Le fichier est vide.");
             }
-        } catch (ProductsNotFoundException e) {
-            response.addFlashAttribute("message", e.getMessage());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Une erreur est survenue lors du téléchargement et du stockage de l'image.");
         }
-
-        return "product_form"; // Redirigez vers la page intranet ou toute autre page souhaitée
-    }
-    */
-
-    /*@GetMapping("/byCategory")
-    public List<Products> getProductsByCategory(@RequestParam Long categoryId) {
-        return productsService.getProductsByCategory(categoryId);
     }*/
+
+
+}
+
+
+
+
+
+
+
+
+
 
 

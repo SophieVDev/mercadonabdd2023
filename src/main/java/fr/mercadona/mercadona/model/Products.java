@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
-
 @Entity
 @Getter
 @Setter
@@ -22,8 +20,14 @@ public class Products {
     private double promotion;
     private String photoUrl;
     private String expirationDate;
-    @Column(name = "image_path")
-    private String imagePath;
+
+
+    @Lob
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
+    private byte[] image;
+    @Column(name = "image_name") // Pour le nom du fichier
+    private String imageName;
+
 
     @ManyToOne
     @JoinColumn(name="categories_id")
@@ -44,6 +48,7 @@ public class Products {
                 ", expirationDate='" + expirationDate + '\'' +
                 '}';
     }
+
 
     public Products(String nom, String description, double prix, double promotion, String photoUrl, String expirationDate) {
         this.nom = nom;
@@ -120,12 +125,22 @@ public class Products {
     public void setCategories(Categories categories) {
         this.categories = categories;
     }
-    public String getImagePath() {
-        return imagePath;
+
+
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+    public String getImageName() {
+        return imageName;
     }
 
-}
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    }
+

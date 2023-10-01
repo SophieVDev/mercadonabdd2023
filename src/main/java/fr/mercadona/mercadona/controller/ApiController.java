@@ -1,5 +1,7 @@
 package fr.mercadona.mercadona.controller;
 import fr.mercadona.mercadona.model.Products;
+import fr.mercadona.mercadona.repository.CategoriesRepository;
+import fr.mercadona.mercadona.service.CategoriesService;
 import fr.mercadona.mercadona.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,14 @@ public class ApiController {
 
     @Autowired
     private ProductsService productsService;
-
+    @Autowired
+    private CategoriesService categoriesService;
+    @Autowired
+    private CategoriesRepository categoriesRepository;
 
     @GetMapping("/produits")
     public List<Products> getAllProducts() {
-            return productsService.getAllProducts();
+        return productsService.getAllProducts();
     }
 
 
@@ -27,6 +32,7 @@ public class ApiController {
         Products createdProducts = productsService.createProduct(products);
         return ResponseEntity.ok(createdProducts);
     }
+
     @GetMapping("/produits/{productId}")
     public ResponseEntity<Products> getProductsById(@PathVariable Integer productId) {
         Products products = productsService.getProductsById(productId);
@@ -53,17 +59,13 @@ public class ApiController {
         return ResponseEntity.noContent().build();
     }
 
+}
 
   /*  @RequestMapping("/categories")
     public class CategoriesController {
         private CategoriesService categoriesService;
 
-        @GetMapping("categories/list")
-        public List<Categories> getAllCategories() {
-            return categoriesService.getAllCategories();
-        }
-
     }*/
-}
+
 
 

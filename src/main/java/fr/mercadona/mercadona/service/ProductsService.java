@@ -1,9 +1,6 @@
 package fr.mercadona.mercadona.service;
 
-
-import fr.mercadona.mercadona.model.Categories;
 import fr.mercadona.mercadona.model.Products;
-import fr.mercadona.mercadona.repository.CategoriesRepository;
 import fr.mercadona.mercadona.repository.ProductsRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -86,6 +83,7 @@ public class ProductsService {
     public void deleteProduct(Integer productId) {
         productsRepository.deleteById(productId);
     }
+
 
 
 }

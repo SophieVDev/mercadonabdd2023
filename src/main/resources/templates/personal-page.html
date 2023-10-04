@@ -52,7 +52,6 @@
             <th>Prix</th>
             <th>Promotion en %</th>
             <th>Prix remisé</th>
-            <th>Photo</th>
             <th></th>
             </thead>
             <tbody>
@@ -69,9 +68,6 @@
                     <td th:text="${products.prix + ' €'}"></td>
                     <td>[[${products.promotion}]]</td>
                     <td th:text="${products.prix} - ${products.prix} * ${products.promotion} / 100 + ' €'"></td>
-                    <td>
-                        <img th:if="${products.id != null}" th:src="@{'/produits/image/' + ${products.image}}" alt="Image du produit" width="100" height="100" />
-                    </td>
 
 
 

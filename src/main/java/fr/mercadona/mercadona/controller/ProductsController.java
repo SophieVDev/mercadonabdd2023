@@ -8,9 +8,7 @@ import fr.mercadona.mercadona.repository.ProductsRepository;
 import fr.mercadona.mercadona.service.ProductsNotFoundException;
 import fr.mercadona.mercadona.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
 public class ProductsController {
+
     @Autowired
     private ProductsRepository productsRepository;
 
@@ -44,9 +41,9 @@ public class ProductsController {
 
 // Pour chaque produit, ajoutez le chemin d'accès à l'image
         listProducts.forEach(product -> {
-            String imageFileName = product.getImageName(); // Obtenez le nom du fichier image depuis la base de données
+            String imageFileName = product.getImageName(); // Obtenir le nom du fichier image depuis la base de données
             String imageUrl = "/static/images/" + imageFileName; // Chemin d'accès à l'image sur le système de fichiers
-            product.setImageName(imageUrl); // Assurez-vous que setImageName() est le bon setter pour l'URL de l'image
+            product.setImageName(imageUrl); // S'Assurer que setImageName() est le bon setter pour l'URL de l'image
         });
 
         ViewModels viewModels = new ViewModels();
@@ -82,6 +79,9 @@ public class ProductsController {
         return "product_form";
     }
 
+
+
+
     @PostMapping("/produits/save")
     public String saveProducts(Products products, RedirectAttributes response) {
         productsService.save(products);
@@ -89,6 +89,8 @@ public class ProductsController {
 
         return "redirect:/produits/intranet";
     }
+
+
 
     @GetMapping("/produits/edit/{id}")
     public String showEditProductsForm(@PathVariable("id") Integer id, Model model, RedirectAttributes response) {
@@ -151,35 +153,11 @@ public class ProductsController {
     }
 
 
-// ...
 
 
 
 
-    //STOCKER IMAGE
 
-
-
-    /*@PostMapping("/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("imageFile") MultipartFile file) {
-        try {
-            // Vérifiez si le fichier n'est pas vide
-            if (!file.isEmpty()) {
-                Products products = new Products();
-                products.setImage(file.getBytes()); // Stockez les données binaires de l'image
-
-                // Sauvegardez l'objet Products dans la base de données en utilisant le service
-                productsService.save(products);
-
-                return ResponseEntity.ok("L'image " + file.getOriginalFilename() + " a été téléchargée et stockée avec succès.");
-            } else {
-                return ResponseEntity.badRequest().body("Le fichier est vide.");
-            }
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Une erreur est survenue lors du téléchargement et du stockage de l'image.");
-        }
-    }*/
 
 
 }

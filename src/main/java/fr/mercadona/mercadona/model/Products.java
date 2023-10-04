@@ -18,6 +18,7 @@ public class Products {
     private String description;
     private double prix;
     private double promotion;
+    @Transient
     private String photoUrl;
     private String expirationDate;
 
@@ -105,8 +106,8 @@ public class Products {
         return photoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setPhotoUrl(String baseUrl) {
+        this.photoUrl = baseUrl + "/products/image/" + this.id;
     }
 
 

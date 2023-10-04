@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
+
 public class ApiController {
 
     @Autowired
@@ -23,14 +24,22 @@ public class ApiController {
 
     @GetMapping("/produits")
     public List<Products> getAllProducts() {
-        return productsService.getAllProducts();
+        List<Products> products = productsService.getAllProducts();
+
+        for (Products product : products) {
+            product.setPhotoUrl("/products/image/" + product.getId());
+        }
+
+        return products;
     }
+
 
 
     @PostMapping("/produits")
     public ResponseEntity<Products> createProduct(@RequestBody Products products) {
         Products createdProducts = productsService.createProduct(products);
         return ResponseEntity.ok(createdProducts);
+
     }
 
     @GetMapping("/produits/{productId}")
@@ -59,13 +68,10 @@ public class ApiController {
         return ResponseEntity.noContent().build();
     }
 
+
 }
 
-  /*  @RequestMapping("/categories")
-    public class CategoriesController {
-        private CategoriesService categoriesService;
 
-    }*/
 
 
 

@@ -78,7 +78,7 @@
                     <td>
                         <a class="h4 mr-3" th:href="@{'/produits/edit/' + ${products.id}}"><i class="bi bi-pencil"></i></a>
                         <a class="h4 mr-3" th:href="@{'/produits/edit/' + ${products.id}}"><i class="bi bi-percent"></i></a>
-                        <a class="h4 mr-3" th:href="@{'/produits/delete/' + ${products.id}}"><i class="bi bi-trash3"></i></a>
+                        <a class="h4 mr-3" th:href="@{'/produits/delete/' + ${products.id}}"onclick="return confirmDelete()"><i class="bi bi-trash3"></i></a>
                     </td>
                 </tr>
             </th:block>
@@ -122,5 +122,11 @@
 
     // Démarre le timeout d'inactivité au chargement de la page
     document.addEventListener('DOMContentLoaded', resetInactivityTimeout);
+
+
+    function confirmDelete() {
+        var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce produit ?");
+        return confirmation;
+    }
 </script>
 

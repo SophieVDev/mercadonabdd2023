@@ -34,52 +34,46 @@
 
 
 <div class="enregister">
-    <img src="/votre-espace.jpg" style = "width:100%" alt="header_mercadona"
-         title="header de l'entreprise">
-    <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
-        <div class="modal-dialog" role="document">
-            <h1>Espace Entreprise</h1>
-            <div class="modal-content rounded-4 shadow">
-                <div>
-                    <p class=" text-body-secondary">Cette page est uniquement dédiée aux salariés du service informatique de l'entreprise. Cette espace vous permettra d'intégrer/ supprimer des produits sur le catalogue.</p>
-                </div>
-                <div class="modal-header p-5 pb-4 border-bottom-0">
-                    <h2 class="fw-bold mb-0 fs-2">Se Connecter</h2>
-                </div>
-                <div class="modal-body p-5 pt-0">
+    <img src="/votre-espace.jpg" style = "width:100%" alt="header_mercadona" title="header de l'entreprise">
+        <div class="modal modal-sheet position-static d-block p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+            <div class="modal-dialog" role="document">
+                <h1>Espace Entreprise</h1>
+                <div class="modal-content rounded-4 shadow">
+                    <div>
+                        <p class=" text-body-secondary">Cette page est uniquement dédiée aux salariés du service informatique de l'entreprise. Cette espace vous permettra d'intégrer/ supprimer des produits sur le catalogue.</p>
+                    </div>
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h2 class="fw-bold mb-0 fs-2">Se Connecter</h2>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
 
-
-<form method="post" action="/login" th:object="${loginRequest}">
-    <div class="form-floating mb-3">
-
-        <input type="text"  class="form-control rounded-3" name="login" id="floatingInput" placeholder="Login">
-        <label for="floatingInput">Identifiant</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="password"  class="form-control rounded-3" name ="password" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Mot de passe</label>
-    </div>
-    <div class="input-box">
-        <input type="submit" name="sign-in" value="Se connecter">
-    </div>
-    <a href="/register">Vous n'avez pas vos ID et MDP ? : S'enregistrer</a>
-</form>
+                        <form method="post" action="/login" th:object="${loginRequest}">
+                            <div class="form-floating mb-3">
+                                <input type="text"  class="form-control rounded-3" name="login" id="floatingInput" placeholder="Login">
+                                <label for="floatingInput">Identifiant</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password"  class="form-control rounded-3" name ="password" id="floatingPassword" placeholder="Password">
+                                <label for="floatingPassword">Mot de passe</label>
+                            </div>
+                            <div class="input-box">
+                                <input type="submit" name="sign-in" value="Se connecter">
+                            </div>
+                            <a href="/register">Vous n'avez pas vos ID et MDP ? : S'enregistrer</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
 
 <div class="container">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <p class="col-md-4 mb-0 text-body-secondary">© 2023 Mercadona</p>
-
-
         <a href="http://localhost:4200/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <img class="bi me-2" width="150" height="50" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
         </a>
-
         <ul class="nav col-md-4 justify-content-end">
             <li class="nav-item"><a href="http://localhost:4200/mentions-legales">Mentions Légales</a></li>
         </ul>

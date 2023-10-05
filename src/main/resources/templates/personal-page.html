@@ -60,13 +60,12 @@
                     <tbody>
                         <th:block th:each="products : ${viewModels.listProducts}">
                             <tr>
-                                <td>[[${products.id}]]</td>
-                                <td>[[${products.nom}]]</td>
-                                <td>[[${products.description}]]</td>
-                                <td>[[${products.categories.name}]]</td>
-                                <td>[[${products.expirationDate}]]</td>
+                                <td th:text="${products.id}"></td>
+                                <td th:text="${products.nom}"></td>
+                                <td th:text="${products.description}"></td>
+                                <td th:text="${products.expirationDate}"></td>
                                 <td th:text="${products.prix + ' €'}"></td>
-                                <td>[[${products.promotion}]]</td>
+                                <td th:text="${products.promotion}"></td>
                                 <td th:text="${products.prix} - ${products.prix} * ${products.promotion} / 100 + ' €'"></td>
                                 <td>
                                     <a class="h4 mr-3" th:href="@{'/produits/edit/' + ${products.id}}"><i class="bi bi-pencil"></i></a>

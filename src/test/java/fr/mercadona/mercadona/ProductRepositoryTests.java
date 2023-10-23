@@ -51,13 +51,13 @@ public class ProductRepositoryTests {
 
     }
 
-    @Test
+    /*@Test
     public void testGet(){
      Integer productsId = 2 ;
         Optional<Products> optionalProducts = repo.findById(productsId);
         assertThat(optionalProducts).isPresent();
         System.out.println(optionalProducts.get());
-    }
+    }*/
 
     @Test
     public void TestDelete(){

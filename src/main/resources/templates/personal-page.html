@@ -49,10 +49,9 @@
                         <th>Identifiant</th>
                         <th>Nom</th>
                         <th>Description</th>
-                        <th>Catégorie</th>
                         <th>Date d'expiration</th>
                         <th>Prix</th>
-                        <th>Promotion en %</th>
+                        <th>Promotion</th>
                         <th>Prix remisé</th>
                         <th></th>
                     </thead>
@@ -65,7 +64,7 @@
                                 <td th:text="${products.description}"></td>
                                 <td th:text="${products.expirationDate}"></td>
                                 <td th:text="${products.prix + ' €'}"></td>
-                                <td th:text="${products.promotion}"></td>
+                                <td th:text="${products.promotion+ ' %'}"></td>
                                 <td th:text="${products.prix} - ${products.prix} * ${products.promotion} / 100 + ' €'"></td>
                                 <td>
                                     <a class="h4 mr-3" th:href="@{'/produits/edit/' + ${products.id}}"><i class="bi bi-pencil"></i></a>
@@ -115,5 +114,6 @@
         var confirmation = confirm("Êtes-vous sûr de vouloir supprimer ce produit ?");
         return confirmation;
     }
+
 </script>
 

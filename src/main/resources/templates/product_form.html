@@ -10,20 +10,19 @@
 <body>
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-xl-between py-3 mb-4 border-bottom">
   <div class="col-xl-3 mb-2 mb-md-0">
-    <a href="http://localhost:4200/" class="d-inline-flex link-body-emphasis text-decoration-none">
+    <a href="http://mercadonastudi.io.s3-website.eu-west-3.amazonaws.com/" class="d-inline-flex link-body-emphasis text-decoration-none">
       <img class="logo" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise" width="350" height="100">
     </a>
   </div>
   <nav class="navbar col-12 col-xl-auto mb-2 justify-content-center mb-md-0">
     <div class="menu">
       <ul class="nav">
-        <li><a href="http://localhost:4200/" class="nav-link px-2" style ="color:#141616; font-size:18px;">Revenir sur le site</a></li>
-        <li><a href="http://localhost:8081/produits/intranet" class="nav-link px-2"style ="color:#141616;font-size:18px;">Visualiser les produits</a></li>
+        <li><a href="http://mercadonastudi.io.s3-website.eu-west-3.amazonaws.com/" class="nav-link px-2" style ="color:#141616; font-size:18px;">Revenir sur le site</a></li>
       </ul>
     </div>
   </nav>
   <div class="col-xl-3 ">
-    <a href="http://localhost:4200" class="btn btn-outline me-2" title="Se déconnecter" ><i class="bi bi-door-open-fill"style="font-size: 24px;"></i></a>
+    <a href="http://mercadonastudi.io.s3-website.eu-west-3.amazonaws.com/" class="btn btn-outline me-2" title="Se déconnecter" ><i class="bi bi-door-open-fill"style="font-size: 24px;"></i></a>
   </div>
 </header>
 
@@ -83,7 +82,7 @@
                       <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Promotion (%)</label>
                         <div class="col-sm-8">
-                          <input id="pourcentage" name="pourcentage" type="number" placeholder="Pourcentage de remise en %" class="form-control" step="0.01"/>
+                          <input id="pourcentage" name="pourcentage" type="number" placeholder="Pourcentage de remise en %" class="form-control" step="1"/>
                           <br>
                           <input type="button" class="btn btn-success m-2" th:field="*{promotion}" value="calculer" onclick="calculer()" />
                           <div>
@@ -93,9 +92,9 @@
                       </div>
 
                          <div class="form-group row">
-                              <label class="col-sm-8 col-form-label">Si le résultat vous convient veuillez inscrire la remise en %</label>
+                              <label class="col-sm-8 col-form-label">Si le résultat vous convient veuillez inscrire la remise en % </label>
                                 <div class="col-sm-3">
-                                  <input  id="promotionValue" type="number"  th:field="*{promotion}"  class="form-control"step="0.01"/>
+                                  <input id="promotionValue" type="number" th:field="*{promotion}" class="form-control" />
                                 </div>
                          </div>
 
@@ -124,12 +123,12 @@
 <div class="container">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <p class="col-md-4 mb-0 text-body-secondary">© 2023 Mercadona</p>
-      <a href="http://localhost:4200/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <img class="bi me-2" width="150" height="50" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
-      </a>
-        <ul class="nav col-md-4 justify-content-end">
-          <li class="nav-item"><a href="http://localhost:4200/">Page d'accueil</a></li>
-        </ul>
+    <a href="http://mercadonastudi.io.s3-website.eu-west-3.amazonaws.com/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <img class="bi me-2" width="150" height="50" src="/logo_mercadona.jpg" alt="logo_mercadona" title="logo de l'entreprise">
+    </a>
+    <ul class="nav col-md-4 justify-content-end">
+      <li class="nav-item"><a href="http://bddjavamercadona-env.eba-rzqy8qvm.eu-central-1.elasticbeanstalk.com/">Mentions Légales</a></li>
+    </ul>
   </footer>
 </div>
 
@@ -150,6 +149,7 @@
       // Calculer le prix remisé
       const prixRemise = (prixProduit * (100 - pourcentagePromotion) / 100).toFixed(2);
 
+
       // Afficher le résultat dans la balise HTML
       document.getElementById("resultat").textContent = prixRemise + " €";
       // Mettre à jour la promotion affichée dans la balise <span>
@@ -163,6 +163,41 @@
 
   // Ajouter un gestionnaire d'événement au clic sur le bouton
   document.querySelector("input[type='button']").addEventListener("click", calculer);
+
+
+ /* // Récupérez la valeur du champ d'entrée
+  var pourcentagePromotion = document.getElementById("promotionValue").value.replace(",", ".");
+
+  // Vérifiez si la valeur est vide, nulle ou indéfinie
+  if (pourcentagePromotion === null || pourcentagePromotion === undefined || pourcentagePromotion === "") {
+    pourcentagePromotion = 0; // Si vide, définissez la valeur sur 0
+  }
+
+
+
+  // Permet l'utilisation des flèches pour augmenter ou diminuer la valeur
+  promotionValue.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      event.preventDefault(); // Empêche le défilement de la page lors de l'utilisation des flèches
+
+      var currentValue = parseFloat(this.value.replace(",", ".")) || 0;
+      var step = 0.01; // Étape de l'incrémentation ou de la décrémentation
+
+      // Vérifie la touche pressée
+      if (event.key === "ArrowUp") {
+        // Flèche vers le haut (augmente la valeur)
+        this.value = (currentValue + step).toFixed(2).replace(".", ",");
+      } else if (event.key === "ArrowDown") {
+        // Flèche vers le bas (diminue la valeur)
+        this.value = (Math.max(currentValue - step, 0)).toFixed(2).replace(".", ",");
+      }
+    }
+  });*/
+
+
+
+
+
 
 
   //VISUALISER IMAGE
@@ -189,7 +224,7 @@
     function resetInactivityTimeout() {
     clearTimeout(inactivityTimeout);
     inactivityTimeout = setTimeout(function(){
-    window.location.href = 'http://localhost:4200/';
+    window.location.href = 'http://mercadonastudi.s3-website.eu-west-3.amazonaws.com/';
   }, 300000); // Redirige vers http://localhost:4200/ après 30 secondes d'inactivité
   }
 

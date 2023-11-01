@@ -2,6 +2,8 @@ package fr.mercadona.mercadona.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +19,7 @@ public class Products {
     private String nom;
     private String description;
     private double prix;
+    @NotNull
     private double promotion;
     @Transient
     private String photoUrl;

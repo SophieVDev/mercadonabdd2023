@@ -6,10 +6,10 @@ Bienvenue sur le site de l'application web Mercadona, développée par l'entrepr
 
 ## Informations pratiques
 
-- [Lien vers le site](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+- [Lien vers le site](http://mercadonastudi.io.s3-website.eu-west-3.amazonaws.com/)
 - [Repository GitHub](https://github.com/SophieVDev/mercadonabdd2023.git)
-- [Manuel d'utilisation](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
-- [Documentation technique](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+- [Manuel d'utilisation](https://docs.google.com/presentation/d/1BiHJ4P0IwYFj6bwgaUwLMNisXprXVSaZ/edit?usp=sharing&ouid=103432003492750525135&rtpof=true&sd=true)
+- [Documentation technique](https://drive.google.com/file/d/10I9eyQPA5GpkmJQJ8jsSytImhkh9pYrB/view?usp=sharing)
 
 
 
@@ -30,7 +30,7 @@ spring-boot-starter-test, swagger-ui, bootstrap, webjars-locator-core, jasypt-sp
 
 
 - Côté BACK ==> Cloner le repository : git clone https://github.com/SophieVDev/mercadonabdd2023.git
-- Côté FRONT ==> Cloner le repository : git clone https://github.com/SophieVDev/mercadonabdd2023.git
+- Côté FRONT ==> Cloner le repository : git clone https://github.com/SophieVDev/mercadona.git
 
 
 

@@ -81,10 +81,16 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.ulisesbocchio</groupId>
+<<<<<<< HEAD
 			<artifactId>jasypt-maven-plugin</artifactId>
 			<version>3.0.5</version>
 		</dependency>
 
+=======
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+>>>>>>> dev
 
 
 	</dependencies>
@@ -105,7 +111,11 @@
 			</plugin>
 			<plugin>
 				<groupId>com.github.ulisesbocchio</groupId>
+<<<<<<< HEAD
 				<artifactId>jasypt-maven-plugin</artifactId>
+=======
+				<artifactId>jasypt-spring-boot-starter</artifactId>
+>>>>>>> dev
 				<version>3.0.5</version>
 			</plugin>
 		</plugins>

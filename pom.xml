@@ -84,11 +84,13 @@
 			<artifactId>jasypt-spring-boot-starter</artifactId>
 			<version>3.0.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-secretsmanager
 		<dependency>
-			<groupId>com.github.ulisesbocchio</groupId>
-			<artifactId>jasypt-spring-boot-starter</artifactId>
-			<version>3.0.5</version>
-		</dependency>
+			<groupId>io.awspring.cloud</groupId>
+			<artifactId>spring-cloud-aws-starter-secrets-manager</artifactId>
+			<version>3.0.1</version>
+		</dependency>-->
+
 
 
 	</dependencies>

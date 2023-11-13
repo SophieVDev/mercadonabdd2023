@@ -8,6 +8,7 @@ import fr.mercadona.mercadona.repository.ProductsRepository;
 import fr.mercadona.mercadona.service.ProductsNotFoundException;
 import fr.mercadona.mercadona.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
 @Controller
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductsController {
+
+    //NEW
+    @Value("${upload.directory}")
+    private String uploadDirectory;
+
+
+
+
 
     @Autowired
     private ProductsRepository productsRepository;
@@ -121,6 +132,8 @@ public class ProductsController {
         return "redirect:/produits/intranet";
 
     }
+
+
     @PostMapping("/produits/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("imageFile") MultipartFile file) {
         try {

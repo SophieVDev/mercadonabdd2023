@@ -21,6 +21,7 @@ public class Products {
     private double prix;
     @NotNull
     private double promotion;
+
     @Transient
     private String photoUrl;
     private String expirationDate;
@@ -61,6 +62,7 @@ public class Products {
         this.promotion = promotion;
         this.photoUrl = photoUrl;
         this.expirationDate = expirationDate;
+
 
     }
 
@@ -129,6 +131,7 @@ public class Products {
     public void setCategories(Categories categories) {
         this.categories = categories;
     }
+
 
 
     public byte[] getImage() {

@@ -16,8 +16,8 @@ public class PasswordHashes {
     public static void main(String[] args) {
         // Assurez-vous de configurer correctement votre connexion à la base de données
         String url = "jdbc:postgresql://postgresql-sophie88.alwaysdata.net/sophie88_mercadonabdd";
-        String utilisateur = "sophie88_usermercadona";
-        String motDePasse = "usermercadona";
+        String utilisateur = "${PGUSER}";
+        String motDePasse = "${PGPASSWORD}";
 
         try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {
             // Inscription d'un nouvel utilisateur

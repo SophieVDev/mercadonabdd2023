@@ -29,13 +29,6 @@ import java.util.UUID;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductsController {
 
-    //NEW
-    @Value("${upload.directory}")
-    private String uploadDirectory;
-
-
-
-
 
     @Autowired
     private ProductsRepository productsRepository;

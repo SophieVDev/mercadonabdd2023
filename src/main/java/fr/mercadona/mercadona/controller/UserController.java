@@ -39,25 +39,9 @@ public class UserController {
         model.addAttribute("loginRequest", new User());
         return "login_user";
     }
-//NEW
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model) {
-        System.out.println("login request:" + user);
-
-        // Utilisez la méthode authenticate du service pour obtenir l'utilisateur authentifié
-        User authenticated = userService.authenticate(user.getLogin(), user.getPassword());
-
-        if (authenticated != null) {
-            model.addAttribute("userLogin", authenticated.getLogin());
-            return "redirect:/produits/intranet";
-        } else {
-            return "error_page";
-        }
-    }
 
 
-/*    @PostMapping("/login")
+   @PostMapping("/login")
     public String login(@ModelAttribute User user, Model model){
         System.out.println("login request:" + user );
         User authenticated = userService.authenticate(user.getLogin(), user.getPassword());
@@ -69,7 +53,7 @@ public class UserController {
         }
     }
 
- */
+
 
 
     @GetMapping("/login/intranet")

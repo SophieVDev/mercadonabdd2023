@@ -8,7 +8,7 @@ Bienvenue sur le site de l'application web Mercadona, développée par l'entrepr
 
 - [Lien vers le site](http://mercadonastudi.io.s3-website.eu-west-3.amazonaws.com/)
 - [Repository GitHub](https://github.com/SophieVDev/mercadonabdd2023.git)
-- [Manuel d'utilisation](https://drive.google.com/file/d/1VXDXFqdrjlvst3pfh6eXUzA6-CoBkpky/view?usp=sharing)
+- [Manuel d'utilisation](https://drive.google.com/file/d/1wE98oEM_E2TFC21XeVg_tIZiwRXRp1lr/view?usp=sharing)
 - [Documentation technique](https://drive.google.com/file/d/1B0FyR3EjUBsPI2nN6me7rQWtVJgfhhtj/view?usp=sharing)
 
 
